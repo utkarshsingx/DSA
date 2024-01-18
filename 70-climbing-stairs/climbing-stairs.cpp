@@ -2,7 +2,7 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        int ways = 1;
+        int no_of_ways = 1;
 
         for (int i = 1; i <= n / 2; i++) {
             double sum = 1;
@@ -11,10 +11,10 @@ public:
                 sum *= (double)(n - j) / (j - i + 1);
             }
 
-            ways +=sum;
+            no_of_ways +=sum;
         }
 
-        return ways;
+        return no_of_ways;
     }
 };
 

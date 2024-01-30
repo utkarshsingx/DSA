@@ -1,30 +1,31 @@
-
 class Solution {
-
-    long resolves(int a, int b, char Operator){
-        if(Operator == '+') return a + b;
-        else if(Operator == '-') return a - b;
-        else if(Operator == '*') return (long)a*b;
-        return a/b;
-    }
 public:
     int evalRPN(vector<string>& tokens) {
-        stack<long> Stack;
-        int n = tokens.size();
-        for(int i = 0; i < n; i++){
-
-            if(tokens[i].size() == 1 and tokens[i][0] < 48){
-                long integer2 = Stack.top();
-                Stack.pop();
-                long integer1 = Stack.top();
-                Stack.pop();
-                
-                string Operator = tokens[i];
-                long resolvedAns = resolves(integer1, integer2 , Operator[0]);
-                Stack.push(resolvedAns);
-            }else 
-                Stack.push(stol(tokens[i]));
+        stack<int> s;
+        for (auto a : tokens) {
+            if (a.size() == 1 && !isdigit(a[0])) {  // check if an operator
+                int num2 = s.top();
+                s.pop();
+                int num1 = s.top();
+                s.pop();
+                switch (a[0]) {  // note switch use char or integer
+                    case '+':
+                        s.push(num1 + num2);
+                        break;
+                    case '-':
+                        s.push(num1 - num2);
+                        break;
+                    case '*':
+                        s.push(num1 * num2);
+                        break;
+                    case '/':
+                        s.push(num1 / num2);
+                        break;
+                }
+            } else {  // if an number push to stack
+                s.push(atoi(a.c_str()));
+            }
         }
-        return Stack.top();
+        return s.top();
     }
 };

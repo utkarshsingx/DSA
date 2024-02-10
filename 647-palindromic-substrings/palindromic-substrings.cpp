@@ -1,31 +1,27 @@
 class Solution {
 public:
     int countSubstrings(string s) {
-        int n = s.length();
-        vector<vector<bool>> palindrome(n, vector<bool>(n, false));
-        int ans = 0;
-
-        for (int i = 0; i < n; ++i) {
-            palindrome[i][i] = true;
-            ans++;
-        }
-
-        for (int i = 0; i < n - 1; ++i) {
-            if (s[i] == s[i + 1]) {
-                palindrome[i][i + 1] = true;
-                ans++;
+        int resLen=s.length();
+        for(int i=0;i<s.length();i++){
+            //for odd palindrome
+            for(int j=1;(i-j>=0 && i+j<s.length());j++){
+                if(s[i-j]==s[i+j]){
+                    resLen++;
+                }
+                else{
+                    break;
+                }
             }
-        }
-
-        for (int len = 3; len <= n; ++len) {
-            for (int i = 0; i < n - len + 1; ++i) {
-                if (s[i] == s[i + len - 1] && palindrome[i + 1][i + len - 2]) {
-                    palindrome[i][i + len - 1] = true;
-                    ans++;
+            //for even palindrome
+            for(int j=0;(i-j>=0 && i+j+1<s.length());j++){
+                if(s[i-j]==s[i+j+1]){
+                   resLen++;
+                }
+                else{
+                    break;
                 }
             }
         }
-
-        return ans;
+        return resLen;
     }
 };
